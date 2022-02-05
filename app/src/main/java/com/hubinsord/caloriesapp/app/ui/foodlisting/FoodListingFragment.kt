@@ -1,4 +1,4 @@
-package com.hubinsord.caloriesapp.ui.foodlisting
+package com.hubinsord.caloriesapp.app.ui.foodlisting
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

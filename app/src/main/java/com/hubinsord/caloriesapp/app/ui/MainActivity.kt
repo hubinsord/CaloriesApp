@@ -1,4 +1,4 @@
-package com.hubinsord.caloriesapp.ui
+package com.hubinsord.caloriesapp.app.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

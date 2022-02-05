@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/foodListingFragment"
-        android:name="com.hubinsord.caloriesapp.ui.foodlisting.FoodListingFragment"
+        android:name="com.hubinsord.caloriesapp.app.ui.foodlisting.FoodListingFragment"
         android:label="fragment_food_listing"
         tools:layout="@layout/fragment_food_listing" />
 </navigation>
