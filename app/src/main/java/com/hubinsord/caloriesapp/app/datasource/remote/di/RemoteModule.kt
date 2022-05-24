@@ -1,6 +1,6 @@
 package com.hubinsord.caloriesapp.app.datasource.remote.di
 
-import com.hubinsord.caloriesapp.app.datasource.remote.services.OpenFoodService
+import com.hubinsord.caloriesapp.app.datasource.remote.api.OpenFoodApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,14 +15,14 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideOpenFoodService(retrofit: Retrofit): OpenFoodService =
-        retrofit.create(OpenFoodService::class.java)
+    fun provideOpenFoodService(retrofit: Retrofit): OpenFoodApi =
+        retrofit.create(OpenFoodApi::class.java)
 
     @Singleton
     @Provides
     fun provideRetrofit(moshiConverterFactory: MoshiConverterFactory): Retrofit =
         Retrofit.Builder()
-            .baseUrl(OpenFoodService.BASE_URL)
+            .baseUrl(OpenFoodApi.BASE_URL)
             .addConverterFactory(moshiConverterFactory)
             .build()
 

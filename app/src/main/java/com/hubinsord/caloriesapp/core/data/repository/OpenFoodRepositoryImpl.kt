@@ -1,4 +1,5 @@
 package com.hubinsord.caloriesapp.core.data.repository
 
-class OpenFoodRepository (){
+class OpenFoodRepositoryImpl (){
+
 }
