@@ -13,9 +13,9 @@ class ProductInfoRemoteDataSourceImpl @Inject constructor(
     private val apiProductInfoToEntityMapper: ApiProductInfoToEntityMapper
 ) : ProductInfoRemoteDataSource {
 
-    override suspend fun getProductInfo(): ProductInfo {
+    override suspend fun getProductInfo(productName: String): ProductInfo {
         return withContext(Dispatchers.IO) {
-            apiProductInfoToEntityMapper.map(openFoodApi.getApiProductInfo())
+            apiProductInfoToEntityMapper.map(openFoodApi.getApiProductInfo(productName))
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.hubinsord.caloriesapp.app.ui.foodlisting
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -43,16 +45,23 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
             adapter = foodListingAdapter
             layoutManager =LinearLayoutManager(requireContext())
         }
-        viewModel.getProducts()
+        initSearchTV()
+//        viewModel.getProducts()
+    }
+
+    private fun initSearchTV() {
+        binding.etSearchProduct.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                viewModel.onSearchProductTextChanged(p0)
+            }
+        })
     }
 
     private fun initObservers() {
         viewModel.products.observe(viewLifecycleOwner){
             foodListingAdapter.submitList(it)
         }
-        viewModel.productInfo.observe(viewLifecycleOwner){
-            Log.d("PRODUCT", it.toString())
-        }
-
     }
 }

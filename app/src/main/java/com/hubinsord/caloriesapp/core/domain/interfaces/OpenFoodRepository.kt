@@ -6,6 +6,6 @@ import com.hubinsord.caloriesapp.core.domain.entities.Resource
 
 interface OpenFoodRepository {
 
-    suspend fun getProductInfo(): Resource<ProductInfo>
-    suspend fun getProductsFromProductInfo(): List<Product>
+    suspend fun getProductInfoByName(productName: String): Resource<ProductInfo>
+    suspend fun getProductsByName(productName: String): List<Product>
 }

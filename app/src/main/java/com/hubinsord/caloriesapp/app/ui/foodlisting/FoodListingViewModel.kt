@@ -22,9 +22,13 @@ class FoodListingViewModel @Inject constructor(
     private val _productInfo = MutableLiveData<ProductInfo>()
     val productInfo: LiveData<ProductInfo> get() = _productInfo
 
-    fun getProducts() =
+    private fun getProducts(productName: String) =
         viewModelScope.launch {
-            _products.postValue(repository.getProductsFromProductInfo())
+            _products.postValue(repository.getProductsByName(productName))
 //            _productInfo.postValue(repository.getProductsFromProductInfo())
         }
+
+    fun onSearchProductTextChanged(productName: CharSequence?) {
+        getProducts(productName.toString())
+    }
 }

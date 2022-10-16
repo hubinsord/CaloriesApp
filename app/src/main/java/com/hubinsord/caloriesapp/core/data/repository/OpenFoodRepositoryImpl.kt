@@ -12,19 +12,19 @@ class OpenFoodRepositoryImpl @Inject constructor(
     private val productInfoRemoteDataSource: ProductInfoRemoteDataSource
 ) : OpenFoodRepository {
 
-    override suspend fun getProductInfo(): Resource<ProductInfo> {
+    override suspend fun getProductInfoByName(productName: String): Resource<ProductInfo> {
         return safeCall {
-            productInfoRemoteDataSource.getProductInfo()
+            productInfoRemoteDataSource.getProductInfo(productName)
         }
     }
 
-    override suspend fun getProductsFromProductInfo(): List<Product> {
+    override suspend fun getProductsByName(productName: String): List<Product> {
         var products: List<Product>
-        val productInfoResource = getProductInfo()
+        val productInfoResource = getProductInfoByName(productName)
         if (productInfoResource is Resource.Success) {
             products = productInfoResource.data?.products ?: mutableListOf()
         } else {
-            throw Exception(productInfoResource.error)
+            products = mutableListOf()
         }
         return products
     }
