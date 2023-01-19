@@ -1,4 +1,4 @@
-package com.hubinsord.caloriesapp.app.datasource.remote.datasource
+package com.hubinsord.caloriesapp.app.datasource.remote
 
 import com.hubinsord.caloriesapp.app.datasource.remote.api.OpenFoodApi
 import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductInfoToEntityMapper

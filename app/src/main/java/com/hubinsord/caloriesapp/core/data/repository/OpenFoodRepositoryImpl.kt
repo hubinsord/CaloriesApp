@@ -19,12 +19,12 @@ class OpenFoodRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getProductsByName(productName: String): List<Product> {
-        var products: List<Product>
+        val products: List<Product>
         val productInfoResource = getProductInfoByName(productName)
-        if (productInfoResource is Resource.Success) {
-            products = productInfoResource.data?.products ?: mutableListOf()
+        products = if (productInfoResource is Resource.Success) {
+            productInfoResource.data?.products ?: mutableListOf()
         } else {
-            products = mutableListOf()
+            mutableListOf()
         }
         return products
     }

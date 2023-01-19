@@ -1,7 +1,7 @@
 package com.hubinsord.caloriesapp.app.datasource.remote.di
 
 import com.hubinsord.caloriesapp.app.datasource.remote.api.OpenFoodApi
-import com.hubinsord.caloriesapp.app.datasource.remote.datasource.ProductInfoRemoteDataSourceImpl
+import com.hubinsord.caloriesapp.app.datasource.remote.ProductInfoRemoteDataSourceImpl
 import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductInfoToEntityMapper
 import com.hubinsord.caloriesapp.core.data.interfaces.ProductInfoRemoteDataSource
 import com.squareup.moshi.Moshi
