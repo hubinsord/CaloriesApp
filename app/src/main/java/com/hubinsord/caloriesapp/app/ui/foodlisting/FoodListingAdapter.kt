@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hubinsord.caloriesapp.core.domain.entities.Product
-import com.hubinsord.caloriesapp.databinding.FoodListingItemBinding
+import com.hubinsord.caloriesapp.databinding.ItemFoodListingBinding
 
 class FoodListingAdapter() : ListAdapter<Product, FoodListingAdapter.ViewHolder>(ProductComparator()) {
 
-    inner class ViewHolder(private val binding: FoodListingItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ItemFoodListingBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(product: Product) {
             binding.apply {
@@ -23,7 +23,7 @@ class FoodListingAdapter() : ListAdapter<Product, FoodListingAdapter.ViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = FoodListingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemFoodListingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
