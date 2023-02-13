@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">CaloriesApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--    food_listing    -->
+    <string name="et_search_product">Product…</string>
+
 </resources>

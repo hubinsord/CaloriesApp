@@ -3,7 +3,6 @@ package com.hubinsord.caloriesapp.app.ui.foodlisting
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,12 +40,21 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
     }
 
     private fun initViews() {
+        initFoodListingRecyclerView()
+        initSearchTV()
+    }
+
+    private fun initObservers() {
+        viewModel.products.observe(viewLifecycleOwner){
+            foodListingAdapter.submitList(it)
+        }
+    }
+
+    private fun initFoodListingRecyclerView() {
         binding.rcvFoodListingProducts.apply {
             adapter = foodListingAdapter
-            layoutManager =LinearLayoutManager(requireContext())
+            layoutManager = LinearLayoutManager(requireContext())
         }
-        initSearchTV()
-//        viewModel.getProducts()
     }
 
     private fun initSearchTV() {
@@ -59,9 +67,4 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
         })
     }
 
-    private fun initObservers() {
-        viewModel.products.observe(viewLifecycleOwner){
-            foodListingAdapter.submitList(it)
-        }
-    }
 }
