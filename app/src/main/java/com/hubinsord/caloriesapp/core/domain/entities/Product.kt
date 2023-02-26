@@ -8,7 +8,7 @@ data class Product(
 //    val brand: String,
     val keywords: List<String>,
     val grade: String,
-//    val imageUrl: String,
+    val imageUrl: String,
 //    val nutriments: ApiNutriments
 ) {
 }

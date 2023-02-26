@@ -5,22 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.hubinsord.caloriesapp.R
 import com.hubinsord.caloriesapp.core.domain.entities.Product
+import com.hubinsord.caloriesapp.core.extensions.load
 import com.hubinsord.caloriesapp.databinding.ItemFoodListingBinding
 
 class FoodListingAdapter() : ListAdapter<Product, FoodListingAdapter.ViewHolder>(ProductComparator()) {
-
-    inner class ViewHolder(private val binding: ItemFoodListingBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(product: Product) {
-            binding.apply {
-                tvId.text = product.id.toString()
-//                tvBrand.text = product.brand
-                tvProductNamePl.text = product.productName
-            }
-        }
-
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemFoodListingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -41,6 +32,22 @@ class FoodListingAdapter() : ListAdapter<Product, FoodListingAdapter.ViewHolder>
 
         override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
             return oldItem == newItem
+        }
+    }
+
+    inner class ViewHolder(private val binding: ItemFoodListingBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(product: Product) {
+            binding.apply {
+                Glide.with(binding.root)
+                    .load(product.imageUrl)
+                    .placeholder(R.drawable.ic_placeholder_item_food_listing)
+                    .into(binding.ivProduct)
+//                ivProduct.load(product.imageUrl)
+//                tvId.text = product.id.toString()
+//                tvBrand.text = product.brand
+                tvProductNamePl.text = product.productName
+            }
         }
 
     }

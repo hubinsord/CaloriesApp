@@ -15,7 +15,7 @@ class ApiProductToEntityMapperImpl @Inject constructor() : ApiProductToEntityMap
 //            brand = value.brand,
             keywords = value.keywords,
             grade = value.grade,
-//            imageUrl = value.imageUrl,
+            imageUrl = value.imageUrl ?: "",
 //            nutriments = value.nutriments
         )
     }

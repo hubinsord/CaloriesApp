@@ -18,8 +18,8 @@ data class ApiProduct(
     @Json(name = "ecoscore_grade")
     val grade: String,
 
-//    @Json(name = "image_url")
-//    val imageUrl: String?,
+    @Json(name = "image_url")
+    val imageUrl: String?,
 
 //    @Json(name = "nutriments")
 //    val nutriments: ApiNutriments

@@ -3,15 +3,24 @@ package com.hubinsord.caloriesapp.app.ui.foodlisting
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.flexbox.AlignContent
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import com.hubinsord.caloriesapp.R
 import com.hubinsord.caloriesapp.databinding.FragmentFoodListingBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
@@ -32,6 +41,7 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
         binding.lifecycleOwner = this
         initViews()
         initObservers()
+
     }
 
     override fun onDestroyView() {
@@ -53,7 +63,17 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
     private fun initFoodListingRecyclerView() {
         binding.rcvFoodListingProducts.apply {
             adapter = foodListingAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+//            layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL, false)
+
+//            layoutManager = FlexboxLayoutManager(requireContext()).apply {
+//                flexWrap = FlexWrap.WRAP
+//                flexDirection = FlexDirection.ROW
+//                alignContent = AlignContent.STRETCH
+//                alignItems = AlignItems.STRETCH
+//                justifyContent = JustifyContent.CENTER
+//
+//            }
         }
     }
 
@@ -65,6 +85,12 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
                 viewModel.onSearchProductTextChanged(p0)
             }
         })
+    }
+
+    private fun calculateNoOfColumns(columnWidthDp: Float): Int { // For example columnWidthdp=180
+        val displayMetrics: DisplayMetrics = requireContext().resources.displayMetrics
+        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
+        return (screenWidthDp / columnWidthDp + 0.5).toInt()
     }
 
 }
