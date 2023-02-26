@@ -55,7 +55,7 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
     }
 
     private fun initObservers() {
-        viewModel.products.observe(viewLifecycleOwner){
+        viewModel.products.observe(viewLifecycleOwner) {
             foodListingAdapter.submitList(it)
         }
     }
@@ -63,7 +63,7 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
     private fun initFoodListingRecyclerView() {
         binding.rcvFoodListingProducts.apply {
             adapter = foodListingAdapter
-            layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 //            layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL, false)
 
 //            layoutManager = FlexboxLayoutManager(requireContext()).apply {
@@ -78,7 +78,7 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
     }
 
     private fun initSearchTV() {
-        binding.etSearchProduct.addTextChangedListener(object: TextWatcher{
+        binding.etSearchProduct.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
