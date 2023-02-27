@@ -1,10 +1,10 @@
 package com.hubinsord.caloriesapp.core.data.utils
 
-import com.hubinsord.caloriesapp.core.domain.entities.Resource
+import com.hubinsord.caloriesapp.core.domain.entities.Result
 
-inline fun <T> safeCall(block: () -> T): Resource<T> =
+inline fun <T> safeCall(block: () -> T): Result<T> =
     try {
-        Resource.Success(block.invoke())
+        Result.Success(block.invoke())
     } catch (exception: Throwable) {
-        Resource.Error(exception.message)
+        Result.Error(exception.message)
     }
