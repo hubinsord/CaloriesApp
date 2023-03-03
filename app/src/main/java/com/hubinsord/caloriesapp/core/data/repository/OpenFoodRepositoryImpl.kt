@@ -1,5 +1,6 @@
 package com.hubinsord.caloriesapp.core.data.repository
 
+import com.hubinsord.caloriesapp.app.datasource.local.ProductLocalDataSource
 import com.hubinsord.caloriesapp.core.data.interfaces.ProductInfoRemoteDataSource
 import com.hubinsord.caloriesapp.core.data.utils.safeCall
 import com.hubinsord.caloriesapp.core.domain.entities.Product
@@ -9,7 +10,8 @@ import com.hubinsord.caloriesapp.core.domain.interfaces.OpenFoodRepository
 import javax.inject.Inject
 
 class OpenFoodRepositoryImpl @Inject constructor(
-    private val productInfoRemoteDataSource: ProductInfoRemoteDataSource
+    private val productInfoRemoteDataSource: ProductInfoRemoteDataSource,
+    private val productLocalDataSource: ProductLocalDataSource
 ) : OpenFoodRepository {
 
     override suspend fun getProductInfoByName(productName: String): Result<ProductInfo> {

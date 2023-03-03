@@ -1,5 +1,6 @@
 package com.hubinsord.caloriesapp.app.datasource.remote.di
 
+import com.hubinsord.caloriesapp.app.datasource.local.ProductLocalDataSource
 import com.hubinsord.caloriesapp.core.data.interfaces.ProductInfoRemoteDataSource
 import com.hubinsord.caloriesapp.core.data.repository.OpenFoodRepositoryImpl
 import com.hubinsord.caloriesapp.core.domain.interfaces.OpenFoodRepository
@@ -15,6 +16,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideOpenFoodRepository(productInfoRemoteDataSource: ProductInfoRemoteDataSource): OpenFoodRepository =
-        OpenFoodRepositoryImpl(productInfoRemoteDataSource)
+    fun provideOpenFoodRepository(
+        productInfoRemoteDataSource: ProductInfoRemoteDataSource,
+        productLocalDataSource: ProductLocalDataSource
+    ): OpenFoodRepository =
+        OpenFoodRepositoryImpl(
+            productInfoRemoteDataSource = productInfoRemoteDataSource,
+            productLocalDataSource = productLocalDataSource
+        )
 }
