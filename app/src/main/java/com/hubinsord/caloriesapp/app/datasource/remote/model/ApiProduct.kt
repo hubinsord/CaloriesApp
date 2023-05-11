@@ -7,7 +7,7 @@ data class ApiProduct(
     val id: String,
 
     @Json(name = "product_name")
-    val productName: String,
+    val productName: String?,
 //
 //    @Json(name = "brands")
 //    val brand: String,

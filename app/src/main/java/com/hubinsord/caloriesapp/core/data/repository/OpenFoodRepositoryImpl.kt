@@ -13,7 +13,6 @@ class OpenFoodRepositoryImpl @Inject constructor(
     private val productInfoRemoteDataSource: ProductInfoRemoteDataSource,
     private val productLocalDataSource: ProductLocalDataSource
 ) : OpenFoodRepository {
-
     override suspend fun getProductInfoByName(productName: String): Resource<ProductInfo> {
         return safeCall {
             productInfoRemoteDataSource.getProductInfo(productName)
@@ -22,15 +21,21 @@ class OpenFoodRepositoryImpl @Inject constructor(
 
     override suspend fun getProductsByName(productName: String, shouldFetchFromRemote: Boolean): Resource<List<Product>> {
         return safeCall {
-//            val localProduct = productLocalDataSource.getProducts(productName)
-//            if (localProduct == null || shouldFetchFromRemote) {
-                productInfoRemoteDataSource.getProductInfo(productName).products
-//            } else
-//                localProduct
+            productInfoRemoteDataSource.getProductInfo(productName).products
         }
     }
 
+    //    override suspend fun getProductsByName(productName: String, shouldFetchFromRemote: Boolean): Resource<List<Product>> {
+//        return safeCall {
+//            val localProduct = productLocalDataSource.getProducts(productName)
+//            if (localProduct == null || shouldFetchFromRemote) {
+//                productInfoRemoteDataSource.getProductInfo(productName).products
+//            } else
+//                localProduct
+//        }
+//    }
+
     override suspend fun insertProducts(products: List<Product>) {
-        products.forEach {productLocalDataSource.insertProduct(it)  }
+        products.forEach { productLocalDataSource.insertProduct(it) }
     }
 }

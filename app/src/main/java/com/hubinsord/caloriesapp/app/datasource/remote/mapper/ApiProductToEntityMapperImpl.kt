@@ -11,7 +11,7 @@ class ApiProductToEntityMapperImpl @Inject constructor() : ApiProductToEntityMap
     override fun map(value: ApiProduct): Product {
         return Product(
             id = value.id,
-            productName = value.productName,
+            productName = value.productName ?: "",
 //            brand = value.brand,
             keywords = value.keywords,
             grade = value.grade,

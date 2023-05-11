@@ -11,7 +11,7 @@ class ProductToProductDbEntityMapperImpl : ProductToProductDbEntityMapper {
         return with(value) {
             ProductDbEntity(
                 id = id,
-                productName = productName,
+                productName = productName ?: "",
                 keywords = keywords,
                 grade = grade,
                 imageUrl = imageUrl

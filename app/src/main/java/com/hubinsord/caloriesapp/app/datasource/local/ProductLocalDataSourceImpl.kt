@@ -18,6 +18,7 @@ class ProductLocalDataSourceImpl @Inject constructor(
     private val entityToProductDbEntity: ProductToProductDbEntityMapper,
     private val productDbEntityToEntity: ProductDbEntityToEntityMapper
 ) : ProductLocalDataSource {
+
     private val productDao = productsDb.getProductDao()
 
     override suspend fun insertProduct(product: Product) {
