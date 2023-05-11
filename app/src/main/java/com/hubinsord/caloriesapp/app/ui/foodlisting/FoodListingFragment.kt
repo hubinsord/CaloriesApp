@@ -7,10 +7,12 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.hubinsord.caloriesapp.R
+import com.hubinsord.caloriesapp.core.domain.entities.Resource
 import com.hubinsord.caloriesapp.databinding.FragmentFoodListingBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,12 +46,31 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
 
     private fun initViews() {
         initFoodListingRecyclerView()
-        initSearchTV()
+//        initSearchTV()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.ivSearch.setOnClickListener {
+            viewModel.onIvSearchClicked(binding.etSearchProduct.text.toString()  )
+        }
     }
 
     private fun initObservers() {
         viewModel.products.observe(viewLifecycleOwner) {
-            foodListingAdapter.submitList(it)
+            when (it) {
+                is Resource.Loading -> {
+                    binding.fetchingProgressBar.visibility = View.VISIBLE
+                }
+                is Resource.Success ->{
+                    hideProgressBar()
+                    foodListingAdapter.submitList(it.data)
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    Toast.makeText(requireContext(), "ERROR ${it.error}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
@@ -57,33 +78,27 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
         binding.rcvFoodListingProducts.apply {
             adapter = foodListingAdapter
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-//            layoutManager = GridLayoutManager(requireContext(),2, GridLayoutManager.VERTICAL, false)
-
-//            layoutManager = FlexboxLayoutManager(requireContext()).apply {
-//                flexWrap = FlexWrap.WRAP
-//                flexDirection = FlexDirection.ROW
-//                alignContent = AlignContent.STRETCH
-//                alignItems = AlignItems.STRETCH
-//                justifyContent = JustifyContent.CENTER
-//
-//            }
         }
     }
 
-    private fun initSearchTV() {
-        binding.etSearchProduct.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun afterTextChanged(p0: Editable?) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.onSearchProductTextChanged(p0)
-            }
-        })
+//    private fun initSearchTV() {
+//        binding.etSearchProduct.addTextChangedListener(object : TextWatcher {
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//            override fun afterTextChanged(p0: Editable?) {}
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                viewModel.onSearchProductTextChanged(p0)
+//            }
+//        })
+//    }
+
+    private fun hideProgressBar() {
+        binding.fetchingProgressBar.visibility = View.INVISIBLE
     }
 
-    private fun calculateNoOfColumns(columnWidthDp: Float): Int { // For example columnWidthdp=180
-        val displayMetrics: DisplayMetrics = requireContext().resources.displayMetrics
-        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
-        return (screenWidthDp / columnWidthDp + 0.5).toInt()
-    }
+//    private fun calculateNoOfColumns(columnWidthDp: Float): Int { // For example columnWidthdp=180
+//        val displayMetrics: DisplayMetrics = requireContext().resources.displayMetrics
+//        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
+//        return (screenWidthDp / columnWidthDp + 0.5).toInt()
+//    }
 
 }

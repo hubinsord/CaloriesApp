@@ -1,6 +1,5 @@
 package com.hubinsord.caloriesapp.core.domain.entities
 
-import com.hubinsord.caloriesapp.app.datasource.remote.model.ApiProduct
 
 data class ProductInfo(
     val count: Int,

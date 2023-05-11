@@ -5,7 +5,7 @@ import com.hubinsord.caloriesapp.core.data.interfaces.ProductInfoRemoteDataSourc
 import com.hubinsord.caloriesapp.core.data.utils.safeCall
 import com.hubinsord.caloriesapp.core.domain.entities.Product
 import com.hubinsord.caloriesapp.core.domain.entities.ProductInfo
-import com.hubinsord.caloriesapp.core.domain.entities.Result
+import com.hubinsord.caloriesapp.core.domain.entities.Resource
 import com.hubinsord.caloriesapp.core.domain.interfaces.OpenFoodRepository
 import javax.inject.Inject
 
@@ -14,20 +14,23 @@ class OpenFoodRepositoryImpl @Inject constructor(
     private val productLocalDataSource: ProductLocalDataSource
 ) : OpenFoodRepository {
 
-    override suspend fun getProductInfoByName(productName: String): Result<ProductInfo> {
+    override suspend fun getProductInfoByName(productName: String): Resource<ProductInfo> {
         return safeCall {
             productInfoRemoteDataSource.getProductInfo(productName)
         }
     }
 
-    override suspend fun getProductsByName(productName: String): List<Product> {
-        val products: List<Product>
-        val productInfoResult = getProductInfoByName(productName)
-        products = if (productInfoResult is Result.Success) {
-            productInfoResult.data?.products ?: mutableListOf()
-        } else {
-            mutableListOf()
+    override suspend fun getProductsByName(productName: String, shouldFetchFromRemote: Boolean): Resource<List<Product>> {
+        return safeCall {
+//            val localProduct = productLocalDataSource.getProducts(productName)
+//            if (localProduct == null || shouldFetchFromRemote) {
+                productInfoRemoteDataSource.getProductInfo(productName).products
+//            } else
+//                localProduct
         }
-        return products
+    }
+
+    override suspend fun insertProducts(products: List<Product>) {
+        products.forEach {productLocalDataSource.insertProduct(it)  }
     }
 }
