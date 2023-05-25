@@ -1,17 +1,14 @@
 package com.hubinsord.caloriesapp.app.ui.foodlisting
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.DisplayMetrics
-import android.util.Log
-import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.hubinsord.caloriesapp.R
 import com.hubinsord.caloriesapp.core.domain.entities.Resource
@@ -20,15 +17,15 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
+class FoodListingFragment : Fragment(R.layout.fragment_food_listing), FoodListingAdapter.Companion.FoodListingAdapterListener {
 
     private val viewModel: FoodListingViewModel by viewModels()
     private var _binding: FragmentFoodListingBinding? = null
     private val binding get() = _binding!!
-    private val foodListingAdapter = FoodListingAdapter()
+    private val foodListingAdapter = FoodListingAdapter(this)
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFoodListingBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,7 +35,6 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
         binding.lifecycleOwner = this
         initViews()
         initObservers()
-
     }
 
     override fun onDestroyView() {
@@ -48,8 +44,14 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
 
     private fun initViews() {
         initFoodListingRecyclerView()
-//        initSearchTV()
         initListeners()
+    }
+
+    private fun initFoodListingRecyclerView() {
+        binding.rcvFoodListingProducts.apply {
+            adapter = foodListingAdapter
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
     }
 
     private fun initListeners() {
@@ -76,31 +78,13 @@ class FoodListingFragment : Fragment(R.layout.fragment_food_listing) {
         }
     }
 
-    private fun initFoodListingRecyclerView() {
-        binding.rcvFoodListingProducts.apply {
-            adapter = foodListingAdapter
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        }
-    }
-
-//    private fun initSearchTV() {
-//        binding.etSearchProduct.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//            override fun afterTextChanged(p0: Editable?) {}
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                viewModel.onSearchProductTextChanged(p0)
-//            }
-//        })
-//    }
-
     private fun hideProgressBar() {
         binding.fetchingProgressBar.visibility = View.INVISIBLE
     }
 
-//    private fun calculateNoOfColumns(columnWidthDp: Float): Int { // For example columnWidthdp=180
-//        val displayMetrics: DisplayMetrics = requireContext().resources.displayMetrics
-//        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
-//        return (screenWidthDp / columnWidthDp + 0.5).toInt()
-//    }
+    override fun onProductItemClicked(barcode: String) {
+        val action: NavDirections = FoodListingFragmentDirections.actionFoodListingFragmentToProductGeneralInfoFragment(barcode)
+        findNavController().navigate(action)
+    }
 
 }

@@ -11,16 +11,19 @@
         android:label="fragment_food_listing"
         tools:layout="@layout/fragment_food_listing" >
         <action
-            android:id="@+id/action_foodListingFragment_to_productGeneralInfoFragment2"
-            app:destination="@id/productGeneralInfoFragment2" />
+            android:id="@+id/action_foodListingFragment_to_productGeneralInfoFragment"
+            app:destination="@id/productGeneralInfoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/productGeneralInfoFragment2"
+        android:id="@+id/productGeneralInfoFragment"
         android:name="com.hubinsord.caloriesapp.app.ui.productdashboard.ProductGeneralInfoFragment"
         android:label="fragment_product_general_info"
         tools:layout="@layout/fragment_product_general_info" >
         <action
-            android:id="@+id/action_productGeneralInfoFragment2_to_foodListingFragment"
+            android:id="@+id/action_productGeneralInfoFragment_to_foodListingFragment"
             app:destination="@id/foodListingFragment" />
+        <argument
+            android:name="barcode"
+            app:argType="string" />
     </fragment>
 </navigation>

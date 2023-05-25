@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hubinsord.caloriesapp.R
 import com.hubinsord.caloriesapp.core.domain.entities.Product
-import com.hubinsord.caloriesapp.core.extensions.load
 import com.hubinsord.caloriesapp.databinding.ItemFoodListingBinding
 
-class FoodListingAdapter() : ListAdapter<Product, FoodListingAdapter.ViewHolder>(ProductComparator()) {
+class FoodListingAdapter(private val listener: FoodListingAdapterListener) :
+    ListAdapter<Product, FoodListingAdapter.ViewHolder>(ProductComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemFoodListingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -37,18 +37,30 @@ class FoodListingAdapter() : ListAdapter<Product, FoodListingAdapter.ViewHolder>
 
     inner class ViewHolder(private val binding: ItemFoodListingBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(product: Product) {
-            binding.apply {
-                Glide.with(binding.root)
-                    .load(product.imageUrl)
-                    .placeholder(R.drawable.ic_placeholder_item_food_listing)
-                    .into(binding.ivProduct)
-//                ivProduct.load(product.imageUrl)
-//                tvId.text = product.id.toString()
-//                tvBrand.text = product.brand
-                tvProductNamePl.text = product.productName
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val barcode = getItem(position).id
+                    listener.onProductItemClicked(barcode)
+                }
             }
         }
 
+        fun bind(product: Product) {
+            binding.apply {
+                Glide.with(root)
+                    .load(product.imageUrl)
+                    .placeholder(R.drawable.ic_placeholder_item_food_listing)
+                    .into(binding.ivProduct)
+                tvProductNamePl.text = product.productName
+            }
+        }
+    }
+
+    companion object {
+        interface FoodListingAdapterListener {
+            fun onProductItemClicked(barcode: String)
+        }
     }
 }
