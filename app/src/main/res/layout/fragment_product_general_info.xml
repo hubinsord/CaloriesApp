@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".app.ui.productdashboard.ProductGeneralInfoFragment">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/grey_900"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/item_food_listing" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginHorizontal="16dp"
+            android:backgroundTint="@color/black"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_product_match"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/purple_200"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Dobre dopasowanie"
+                    tools:textColor="@color/white"
+                    tools:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginHorizontal="8dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    app:layout_constraintBottom_toTopOf="@id/btn_nutri_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_match"
+                    tools:text="serek wiejski wysokobiałkowy"
+                    tools:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_product_size"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center_vertical"
+                    app:layout_constraintBottom_toTopOf="@id/btn_nutri_score"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_match"
+                    tools:textColor="@color/white"
+                    tools:text = "200g"/>
+
+                <Button
+                    android:id="@+id/btn_nutri_score"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginVertical="8dp"
+                    android:backgroundTint="@color/grey_200"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_name"
+                    tools:text="Dobra jakość odżywcza" />
+
+                <ImageView
+                    android:id="@+id/iv_nutri_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="4dp"
+                    android:layout_marginStart="4dp"
+                    android:elevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_nutri_score"
+                    app:layout_constraintStart_toStartOf="@id/btn_nutri_score"
+                    app:layout_constraintTop_toTopOf="@id/btn_nutri_score"
+                    tools:src="@drawable/ic_placeholder_item_food_listing" />
+
+                <ImageView
+                    android:id="@+id/iv_nutri_score_forward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="4dp"
+                    android:elevation="2dp"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_nutri_score"
+                    app:layout_constraintEnd_toEndOf="@id/btn_nutri_score"
+                    app:layout_constraintTop_toTopOf="@id/btn_nutri_score" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
