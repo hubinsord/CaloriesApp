@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.hubinsord.caloriesapp.R
+import com.hubinsord.caloriesapp.core.domain.entities.Resource
 import com.hubinsord.caloriesapp.databinding.FragmentProductGeneralInfoBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,9 +25,37 @@ class ProductGeneralInfoFragment : Fragment(R.layout.fragment_product_general_in
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        initViews()
+        initObservers()
+        viewModel.getProduct()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initObservers() {
+        viewModel.product.observe(viewLifecycleOwner){product ->
+            when (product) {
+                is Resource.Loading -> {}
+                is Resource.Success -> {
+                    product.data.let {
+                        binding.tvProductName.text = it?.productName
+                    }
+                }
+                is Resource.Error -> {
+                    showErrorDialog()
+                    Toast.makeText(requireContext(), product.error, Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }
+    }
+
+    private fun showErrorDialog() {
     }
 
     companion object {
