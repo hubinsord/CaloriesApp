@@ -1,5 +1,6 @@
 package com.hubinsord.caloriesapp.app.ui.productdashboard
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,7 +21,11 @@ class ProductGeneralInfoFragment : Fragment(R.layout.fragment_product_general_in
     private var _binding: FragmentProductGeneralInfoBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentProductGeneralInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,16 +43,20 @@ class ProductGeneralInfoFragment : Fragment(R.layout.fragment_product_general_in
     }
 
     private fun initObservers() {
-        viewModel.product.observe(viewLifecycleOwner){product ->
+        viewModel.product.observe(viewLifecycleOwner) { product ->
             when (product) {
-                is Resource.Loading -> {}
+                is Resource.Loading -> {
+                    Toast.makeText(requireContext(), "LOADING... ", Toast.LENGTH_LONG).show()
+                }
+
                 is Resource.Success -> {
                     product.data.let {
                         binding.tvProductName.text = it?.productName
                     }
                 }
+
                 is Resource.Error -> {
-                    showErrorDialog()
+                    product.error?.let { showErrorDialog(it) }
                     Toast.makeText(requireContext(), product.error, Toast.LENGTH_LONG).show()
                 }
             }
@@ -55,7 +64,12 @@ class ProductGeneralInfoFragment : Fragment(R.layout.fragment_product_general_in
         }
     }
 
-    private fun showErrorDialog() {
+    private fun showErrorDialog(errorMessage: String) {
+        AlertDialog.Builder(requireContext())
+            .setMessage(errorMessage)
+            .setTitle("ERROR")
+            .create()
+            .show()
     }
 
     companion object {

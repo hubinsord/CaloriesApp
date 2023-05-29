@@ -15,9 +15,10 @@ interface OpenFoodApi {
         @Query("json") json: Boolean = true
     ): ApiProductInfo
 
-    @GET("api/v2/product/{barcode}")
+    @GET("api/v2/product/5900531007019")
     suspend fun getProduct(
-        @Path("barcode") barcode: String
+//        @Path("barcode")
+//        barcode: String
      ): ApiProduct
 
     companion object {

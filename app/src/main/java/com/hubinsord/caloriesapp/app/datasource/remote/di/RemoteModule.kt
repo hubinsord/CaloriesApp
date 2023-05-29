@@ -3,6 +3,7 @@ package com.hubinsord.caloriesapp.app.datasource.remote.di
 import com.hubinsord.caloriesapp.app.datasource.remote.api.OpenFoodApi
 import com.hubinsord.caloriesapp.app.datasource.remote.ProductInfoRemoteDataSourceImpl
 import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductInfoToEntityMapper
+import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductInfoToEntityMapperImpl
 import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductToEntityMapperImpl
 import com.hubinsord.caloriesapp.core.data.interfaces.ProductInfoRemoteDataSource
 import com.squareup.moshi.Moshi
@@ -48,7 +49,7 @@ object RemoteModule {
     @Provides
     fun provideProductInfoRemoteDataSource(
         openFoodApi: OpenFoodApi,
-        apiProductInfoToEntityMapper: ApiProductInfoToEntityMapper,
+        apiProductInfoToEntityMapper: ApiProductInfoToEntityMapperImpl,
         apiProductToEntityMapper: ApiProductToEntityMapperImpl
     ): ProductInfoRemoteDataSource = ProductInfoRemoteDataSourceImpl(openFoodApi, apiProductInfoToEntityMapper, apiProductToEntityMapper)
 
