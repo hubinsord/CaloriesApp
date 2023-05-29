@@ -1,6 +1,7 @@
 package com.hubinsord.caloriesapp.app.datasource.remote.api
 
 import com.hubinsord.caloriesapp.app.datasource.remote.model.ApiProduct
+import com.hubinsord.caloriesapp.app.datasource.remote.model.ApiProductByBarcode
 import com.hubinsord.caloriesapp.app.datasource.remote.model.ApiProductInfo
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,11 +16,11 @@ interface OpenFoodApi {
         @Query("json") json: Boolean = true
     ): ApiProductInfo
 
-    @GET("api/v2/product/5900531007019")
+    @GET("api/v2/product/{barcode}")
     suspend fun getProduct(
-//        @Path("barcode")
-//        barcode: String
-     ): ApiProduct
+        @Path("barcode")
+        barcode: String
+     ): ApiProductByBarcode
 
     companion object {
         const val BASE_URL = "https://pl.openfoodfacts.org/"

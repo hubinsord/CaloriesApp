@@ -25,8 +25,7 @@ class ProductInfoRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getProduct(barcode: String): Product {
         return withContext(Dispatchers.IO){
-//            apiProductToEntityMapper.map(openFoodApi.getProduct(barcode))
-            apiProductToEntityMapper.map(openFoodApi.getProduct())
+            apiProductToEntityMapper.map(openFoodApi.getProduct(barcode).product)
         }
 
     }

@@ -48,19 +48,16 @@ class ProductGeneralInfoFragment : Fragment(R.layout.fragment_product_general_in
                 is Resource.Loading -> {
                     Toast.makeText(requireContext(), "LOADING... ", Toast.LENGTH_LONG).show()
                 }
-
                 is Resource.Success -> {
                     product.data.let {
                         binding.tvProductName.text = it?.productName
                     }
                 }
-
                 is Resource.Error -> {
                     product.error?.let { showErrorDialog(it) }
                     Toast.makeText(requireContext(), product.error, Toast.LENGTH_LONG).show()
                 }
             }
-
         }
     }
 
