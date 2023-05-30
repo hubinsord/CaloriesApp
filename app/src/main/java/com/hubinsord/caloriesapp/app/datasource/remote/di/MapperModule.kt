@@ -1,8 +1,8 @@
 package com.hubinsord.caloriesapp.app.datasource.remote.di
 
 import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductInfoToEntityMapper
-import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductInfoToEntityMapperImpl
-import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductToEntityMapper
+import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ProductResponseEntityToProductMapperImpl
+import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ProductResponseEntityToProductMapper
 import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductToEntityMapperImpl
 import dagger.Module
 import dagger.Provides
@@ -14,9 +14,9 @@ import dagger.hilt.components.SingletonComponent
 object MapperModule {
 
     @Provides
-    fun provideApiProductToEntityMapper(): ApiProductToEntityMapper = ApiProductToEntityMapperImpl()
+    fun provideApiProductToEntityMapper(): ProductResponseEntityToProductMapper = ApiProductToEntityMapperImpl()
 
     @Provides
-    fun provideApiProductInfoToEntity(apiProductToEntityMapper: ApiProductToEntityMapper): ApiProductInfoToEntityMapper =
-        ApiProductInfoToEntityMapperImpl(apiProductToEntityMapper)
+    fun provideApiProductInfoToEntity(apiProductToEntityMapper: ProductResponseEntityToProductMapper): ApiProductInfoToEntityMapper =
+        ProductResponseEntityToProductMapperImpl(apiProductToEntityMapper)
 }

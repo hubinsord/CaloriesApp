@@ -1,8 +1,7 @@
 package com.hubinsord.caloriesapp.app.datasource.remote.api
 
-import com.hubinsord.caloriesapp.app.datasource.remote.model.ApiProduct
-import com.hubinsord.caloriesapp.app.datasource.remote.model.ApiProductByBarcode
-import com.hubinsord.caloriesapp.app.datasource.remote.model.ApiProductInfo
+import com.hubinsord.caloriesapp.app.datasource.remote.model.ProductByBarcodeResponseEntity
+import com.hubinsord.caloriesapp.app.datasource.remote.model.ProductSearchResponseEntity
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,13 +13,13 @@ interface OpenFoodApi {
         @Query("search_simple") searchSimple: Int = 1,
         @Query("action") action: String = "process",
         @Query("json") json: Boolean = true
-    ): ApiProductInfo
+    ): ProductSearchResponseEntity
 
     @GET("api/v2/product/{barcode}")
     suspend fun getProduct(
         @Path("barcode")
         barcode: String
-     ): ApiProductByBarcode
+     ): ProductByBarcodeResponseEntity
 
     companion object {
         const val BASE_URL = "https://pl.openfoodfacts.org/"

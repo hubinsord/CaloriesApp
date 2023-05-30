@@ -2,7 +2,7 @@ package com.hubinsord.caloriesapp.app.datasource.remote.model
 
 import com.squareup.moshi.Json
 
-data class ApiProduct(
+data class ProductEntity(
     @Json(name = "_id")
     val id: String,
 

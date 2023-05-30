@@ -1,7 +1,5 @@
 package com.hubinsord.caloriesapp.core.domain.entities
 
-import com.hubinsord.caloriesapp.app.datasource.remote.model.ApiNutriments
-
 data class Product(
     val id: String,
     val productName: String,

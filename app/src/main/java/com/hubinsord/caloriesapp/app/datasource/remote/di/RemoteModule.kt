@@ -1,11 +1,10 @@
 package com.hubinsord.caloriesapp.app.datasource.remote.di
 
 import com.hubinsord.caloriesapp.app.datasource.remote.api.OpenFoodApi
-import com.hubinsord.caloriesapp.app.datasource.remote.ProductInfoRemoteDataSourceImpl
-import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductInfoToEntityMapper
-import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductInfoToEntityMapperImpl
+import com.hubinsord.caloriesapp.app.datasource.remote.ProductRemoteDataSourceImpl
+import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ProductResponseEntityToProductMapperImpl
 import com.hubinsord.caloriesapp.app.datasource.remote.mapper.ApiProductToEntityMapperImpl
-import com.hubinsord.caloriesapp.core.data.interfaces.ProductInfoRemoteDataSource
+import com.hubinsord.caloriesapp.core.data.interfaces.ProductRemoteDataSource
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -49,9 +48,9 @@ object RemoteModule {
     @Provides
     fun provideProductInfoRemoteDataSource(
         openFoodApi: OpenFoodApi,
-        apiProductInfoToEntityMapper: ApiProductInfoToEntityMapperImpl,
+        apiProductInfoToEntityMapper: ProductResponseEntityToProductMapperImpl,
         apiProductToEntityMapper: ApiProductToEntityMapperImpl
-    ): ProductInfoRemoteDataSource = ProductInfoRemoteDataSourceImpl(openFoodApi, apiProductInfoToEntityMapper, apiProductToEntityMapper)
+    ): ProductRemoteDataSource = ProductRemoteDataSourceImpl(openFoodApi, apiProductInfoToEntityMapper, apiProductToEntityMapper)
 
     @Singleton
     @Provides

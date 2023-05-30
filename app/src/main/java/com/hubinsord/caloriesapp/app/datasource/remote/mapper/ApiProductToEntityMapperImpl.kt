@@ -1,14 +1,14 @@
 package com.hubinsord.caloriesapp.app.datasource.remote.mapper
 
-import com.hubinsord.caloriesapp.app.datasource.remote.model.ApiProduct
+import com.hubinsord.caloriesapp.app.datasource.remote.model.ProductEntity
 import com.hubinsord.caloriesapp.core.domain.entities.Product
 import com.hubinsord.caloriesapp.core.domain.interfaces.Mapper
 import javax.inject.Inject
 
-interface ApiProductToEntityMapper : Mapper<ApiProduct, Product>
+interface ProductResponseEntityToProductMapper : Mapper<ProductEntity, Product>
 
-class ApiProductToEntityMapperImpl @Inject constructor() : ApiProductToEntityMapper {
-    override fun map(value: ApiProduct): Product {
+class ApiProductToEntityMapperImpl @Inject constructor() : ProductResponseEntityToProductMapper {
+    override fun map(value: ProductEntity): Product {
         return Product(
             id = value.id,
             productName = value.productName ?: "",
